@@ -21,7 +21,7 @@ docker run -it -d \
     -e ZONE=example.org \
     -e RECORD_TTL=3600 \
     --name=dyndns \
-    davd/docker-ddns:latest
+    danielschulz/docker-ddns:latest
 ```
 
 If you want to persist DNS configuration across container recreation, add `-v /somefolder:/var/cache/bind`. If you are experiencing any issues updating DNS configuration using the API

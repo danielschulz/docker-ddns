@@ -20,7 +20,7 @@ func main() {
     appConfig.LoadConfig("/etc/dyndns.json")
 
     router := mux.NewRouter().StrictSlash(true)
-    router.HandleFunc("/update", Update).Methods("GET")
+    router.HandleFunc("/update", Update).Methods("POST")
 
     log.Println(fmt.Sprintf("Serving dyndns REST services on 0.0.0.0:8080..."))
     log.Fatal(http.ListenAndServe(":8080", router))

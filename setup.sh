@@ -1,16 +1,16 @@
 #!/bin/bash
 
 [ -z "$SHARED_SECRET" ] && echo "SHARED_SECRET not set" && exit 1;
-[ -z "$ZONE" ] && echo "ZONE not set" && exit 1;
+[ -z "${ZONE}" ] && echo "ZONE not set" && exit 1;
 [ -z "$RECORD_TTL" ] && echo "RECORD_TTL not set" && exit 1;
 
-if [ ! -f /var/cache/bind/$ZONE.zone ]
+if [ ! -f /var/cache/bind/${ZONE}.zone ]
 then
 	echo "creating zone...";
 	cat >> /etc/bind/named.conf <<EOF
-zone "$ZONE" {
+zone "${ZONE}" {
 	type master;
-	file "$ZONE.zone";
+	file "${ZONE}.zone";
 	allow-query { any; };
 	allow-transfer { none; };
 	allow-update { localhost; };
@@ -18,10 +18,10 @@ zone "$ZONE" {
 EOF
 	
 	echo "creating zone file..."
-	cat > /var/cache/bind/$ZONE.zone <<EOF
+	cat > /var/cache/bind/${ZONE}.zone <<EOF
 \$ORIGIN .
 \$TTL 86400	; 1 day
-$ZONE		IN SOA	localhost. root.localhost. (
+${ZONE}		IN SOA	localhost. root.localhost. (
 				74         ; serial
 				3600       ; refresh (1 hour)
 				900        ; retry (15 minutes)
